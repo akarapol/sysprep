@@ -1,0 +1,2 @@
+# System preparation
+This repository serves as a guide and collection of scripts to facilitate the setup process for Linux, macOS, and Windows systems. It aims to streamline the installation and configuration of essential tools and applications commonly used in software development and system administration. By utilizing this repository, you can quickly and easily configure a new system to meet your requirements and preferences.
