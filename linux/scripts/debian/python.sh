@@ -21,8 +21,9 @@ install_python() {
       tar -xJC /usr/src/python --strip-components=1 -f python.tar.xz &&
       rm -f python.tar.xz"
 
+    cd /usr/src/python
+
     sudo su -c "
-      cd /usr/src/python
       ./configure \
         --enable-optimizations \
         --enable-shared"

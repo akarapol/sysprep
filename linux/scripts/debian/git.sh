@@ -15,8 +15,8 @@ install_git() {
       make prefix=/usr/local all &&
       make prefix=/usr/local install"
 
-    rm git.zip
-    rm -rf git-${GIT_VERSION}
+    sudo rm git.zip
+    sudo rm -rf git-${GIT_VERSION}
 
     # smoke test
     git --version
