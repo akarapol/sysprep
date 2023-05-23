@@ -8,8 +8,6 @@ NODE_VERSION=
 PYTHON_VERSION=
 
 main() {
-  clear_screen
-
   if cat /etc/os-release | grep -q debian; then
 
     source ./scripts/utils.sh
