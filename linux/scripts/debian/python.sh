@@ -23,10 +23,11 @@ install_python() {
 
     cd /usr/src/python
 
-    sudo su -c "
-      ./configure \
-        --enable-optimizations \
-        --enable-shared"
+    sudo su -c "./configure \
+          --enable-optimizations \
+          --enable-option-checking=fatal \
+          --enable-shared \
+          --without-ensurepip"
 
     sudo su -c "
       make clean &&
