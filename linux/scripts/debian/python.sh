@@ -25,9 +25,9 @@ install_python() {
 
     sudo su -c "./configure \
           --enable-optimizations \
-          --enable-option-checking=fatal \
+          #--enable-option-checking=fatal \
           --enable-shared \
-          --without-ensurepip"
+          #--without-ensurepip"
 
     sudo su -c "
       make clean &&
@@ -39,8 +39,9 @@ install_python() {
     find /usr/local -type f | grep -E "('*.pyc'|'*.pyo'|'*.a')" | xargs sudo rm -f
 
     # create symlink
+    cd /usr/local/bin
+    
     sudo su -c "
-      cd /usr/local/bin
       ln -s idle3 idle &&
       ln -s pydoc3 pydoc &&
       ln -s python3 python &&
