@@ -17,7 +17,7 @@ install_ohmyposh() {
     wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/${OMP_THEME}.omp.json -O ~/.oh-my-posh/default.omp.json
 
   printf "\n%s" \
-    "eval '\$(oh-my-posh init zsh --config ~/.oh-my-posh/default.omp.json)'" |
+    "eval \"\$(oh-my-posh init zsh --config ~/.oh-my-posh/default.omp.json)\"" |
     tee -a ~/.zshrc >/dev/null
 }
 
