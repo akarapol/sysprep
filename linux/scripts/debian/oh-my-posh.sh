@@ -4,6 +4,12 @@ set -e
 
 install_ohmyposh() {
   clear_screen
+
+  if [ -z $OMP_THEME ]; then
+    error "Variable OMP_THEME not found\n"
+    exit 1
+  fi
+
   print_header "Install oh-my-posh over zsh"
 
   if [ -v ${OMP_THEME} ]; then

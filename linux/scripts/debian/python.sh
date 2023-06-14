@@ -4,6 +4,12 @@ set -e
 
 install_python() {
   clear_screen
+
+  if [ -z $PYTHON_VERSION ]; then
+    error "Variable PYTHON_VERSION not found\n"
+    exit 1
+  fi
+
   print_header "Install python ${PYTHON_VERSION}"
 
   sudo su -c "

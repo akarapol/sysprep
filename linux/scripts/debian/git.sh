@@ -4,6 +4,12 @@ set -e
 
 install_git() {
   clear_screen
+  
+  if [ -z $GIT_VERSION ]; then
+    error "Variable GIT_VERSION not found\n"
+    exit 1
+  fi
+
   print_header "Install Git ${GIT_VERSION}"
 
   if ! exists git; then

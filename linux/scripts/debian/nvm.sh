@@ -4,6 +4,12 @@ set -e
 
 install_nvm() {
   clear_screen
+  
+  if [ -z $NODE_VERSION ]; then
+    error "Variable NODE_VERSION not found\n"
+    exit 1
+  fi  
+  
   print_header "Install nvm"
 
   if ! [ -d "${HOME}/.nvm" ]; then
