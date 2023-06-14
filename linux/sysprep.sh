@@ -6,6 +6,7 @@ OMP_THEME=
 GIT_VERSION=
 NODE_VERSION=
 PYTHON_VERSION=
+MARIADB_VERSION=
 
 main() {
   if cat /etc/os-release | grep -q debian; then
@@ -17,6 +18,7 @@ main() {
     source ./scripts/debian/git.sh
     source ./scripts/debian/nvm.sh
     source ./scripts/debian/python.sh
+    source ./scripts/debian/mariadb.sh
 
   fi
 
