@@ -5,9 +5,9 @@ set -e
 install_python() {
   clear_screen
 
-  if [ -z $PYTHON_VERSION ]; then
-    error "Variable PYTHON_VERSION not found\n"
-    exit 1
+  if [ -z "$PYTHON_VERSION" ]; then
+    error "Variable PYTHON_VERSION is not defined\n"
+    exit 2
   fi
 
   print_header "Install python ${PYTHON_VERSION}"

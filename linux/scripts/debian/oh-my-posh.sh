@@ -5,17 +5,12 @@ set -e
 install_ohmyposh() {
   clear_screen
 
-  if [ -z $OMP_THEME ]; then
-    error "Variable OMP_THEME not found\n"
-    exit 1
+  if [ -z "$OMP_THEME" ]; then
+    error "Variable OMP_THEME is not defined\n"
+    exit 2
   fi
 
   print_header "Install oh-my-posh over zsh"
-
-  if [ -v ${OMP_THEME} ]; then
-    error "Invalid parameter\n"
-    exit 1
-  fi
 
   sudo su -c "curl https://ohmyposh.dev/install.sh | bash -s"
 

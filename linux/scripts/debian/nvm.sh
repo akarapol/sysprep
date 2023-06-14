@@ -5,9 +5,9 @@ set -e
 install_nvm() {
   clear_screen
   
-  if [ -z $NODE_VERSION ]; then
-    error "Variable NODE_VERSION not found\n"
-    exit 1
+  if [ -z "$NODE_VERSION" ]; then
+    error "Variable NODE_VERSION is not defined\n"
+    exit 2
   fi  
   
   print_header "Install nvm"
