@@ -51,10 +51,15 @@ install_python() {
       ln -s idle3 idle &&
       ln -s pydoc3 pydoc &&
       ln -s python3 python &&
-      ln -s python3-config python-config"
+      ln -s python3-config python-config &&
+      ln -s pip3 pip"
 
+    upgrade_pip
+    install_poetry
+    
     # smoke test
     python --version
+    pip --version
   fi
 }
 
@@ -63,11 +68,6 @@ upgrade_pip() {
 
   python -m pip install --upgrade pip
   python -m pip install --upgrade setuptools
-
-  if ! exists pip; then
-    cd /usr/local/bin
-    sudo su -c "ln -s pip3 pip"
-  fi
 
   # smoke test
   pip --version
