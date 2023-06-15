@@ -12,14 +12,22 @@ install_ohmyposh() {
 
   print_header "Install oh-my-posh over zsh"
 
+  sudo su -c "
+    apt update &&
+    apt upgrade -y && 
+    apt install --no-install-recommends -y zsh &&
+    apt autoclean -y"
+
   sudo su -c "curl https://ohmyposh.dev/install.sh | bash -s"
 
-  mkdir -p ~/.oh-my-posh &&
-    wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/${OMP_THEME}.omp.json -O ~/.oh-my-posh/default.omp.json
+  mkdir -p $HOME/.oh-my-posh &&
+    wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/${OMP_THEME}.omp.json -O $HOME/.oh-my-posh/default.omp.json
 
   printf "\n%s" \
     "eval \"\$(oh-my-posh init zsh --config ~/.oh-my-posh/default.omp.json)\"" |
-    tee -a ~/.zshrc >/dev/null
+    tee -a $HOME/.zshrc >/dev/null
+
+  chsh -s $(which zsh)
 }
 
 change_theme() {
@@ -29,5 +37,5 @@ change_theme() {
 
   read -p "Please enter theme name: " -e -i "${OMP_THEME}" OMP_THEME
 
-  wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/${OMP_THEME}.omp.json -O ~/.oh-my-posh/default.omp.json
+  wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/${OMP_THEME}.omp.json -O $HOME/.oh-my-posh/default.omp.json
 }
