@@ -27,14 +27,14 @@ info() {
 
 clear_screen() {
   printf "\033c"
+  printf "\n"
 }
 
 print_header() {
-  printf "\n"
   info $(printf -- "-%.0s" {1..55})
   info "\n${1}\n"
   info $(printf -- "-%.0s" {1..55})
-  printf "\n"
+  printf "\n\n"
 }
 
 print_line() {
