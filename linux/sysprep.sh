@@ -54,6 +54,7 @@ load_menu() {
     printf "1) Setup server\n"
     printf "2) Setup database\n"
     printf "3) Setup frappe\n"
+    printf "4) Install app\n"
 
     printf "Q) Quit\n\n"
 
@@ -71,6 +72,9 @@ load_menu() {
         ;;
       3)
         install_bench && create_instance
+        ;;
+      4)
+        install_app
         ;;
       q|Q)
         exit

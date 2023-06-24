@@ -149,12 +149,8 @@ create_site() {
   bench new-site $site --mariadb-root-password $ROOT_PASSWORD --admin-password $ADMIN_PASSWORD --db-name $db_name --verbose
   bench use $site &&
   bench set-config developer_mode True &&
-  bench set-config disable_async True &&
-  bench set-config disable_scheduler True &&
   bench set-config disable_session_cache True &&
-  bench set-config skip_setup_wizard True &&
-  bench set-config shallow_clone True
-
+  bench set-config shallow_clone False
 }
 
 install_app() {
