@@ -11,6 +11,7 @@ MARIADB_VERSION=
 main() {
   if cat /etc/os-release | grep -q debian; then
 
+    source ./menu.sh
     source ./scripts/utils.sh
 
     source ./scripts/debian/system.sh
@@ -20,6 +21,10 @@ main() {
     source ./scripts/debian/python.sh
     source ./scripts/debian/mariadb.sh
 
+  fi
+
+  if [ $# -eq 0 ]; then
+    load_menu
   fi
 
   if [ $# -eq 1 ]; then
