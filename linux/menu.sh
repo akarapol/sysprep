@@ -22,8 +22,7 @@ load_menu() {
     case $option in
       1) 
         install_library && config &&
-        install_git && install_nvm && install_python &&
-        install_ohmyposh
+        install_git && install_nvm && install_python
         ;;
       2)
         install_redis && install_mariadb

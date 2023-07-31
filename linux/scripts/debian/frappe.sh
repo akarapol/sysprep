@@ -2,22 +2,7 @@
 
 set -e
 
-if [ -z "$X_USER" ]; then
-  error "Variable X_USER is not defined\n"
-  exit 2
-fi
-
-if [ -z "$X_TOKEN" ]; then
-  error "Variable X_TOKEN is not defined\n"
-  exit 2
-fi
-
-if [ -z "$X_REPO" ]; then
-  error "Variable X_REPO is not defined\n"
-  exit 2
-fi
-
-REPO_URL=https://$X_USER:$X_TOKEN@$X_REPO
+REPO_URL=
 INSTANCE=
 
 install_bench() {
@@ -53,6 +38,24 @@ install_bench() {
   fi
 }
 
+set_repo_url() {
+  if [ -z "$X_USER" ]; then
+    error "Variable X_USER is not defined\n"
+    exit 2
+  fi
+
+  if [ -z "$X_TOKEN" ]; then
+    error "Variable X_TOKEN is not defined\n"
+    exit 2
+  fi
+
+  if [ -z "$X_REPO" ]; then
+    error "Variable X_REPO is not defined\n"
+    exit 2
+  fi
+  REPO_URL=https://$X_USER:$X_TOKEN@$X_REPO
+}
+
 confirm(){     
   while true;
   do
@@ -67,6 +70,7 @@ confirm(){
 
 create_instance() {
   clear_screen
+  set_repo_url
   
   if [ -z "$REPO_URL" ]; then
     error "Variable REPO_URL is not defined\n"
@@ -108,7 +112,7 @@ create_instance() {
 
 create_site() {
   clear_screen
-
+  
   if [ -z "$INSTANCE" ]; then
     error "Variable INSTANCE is not defined\n"
 
@@ -155,7 +159,13 @@ create_site() {
 
 install_app() {
   clear_screen
-
+  set_repo_url
+  
+  if [ -z "$REPO_URL" ]; then
+    error "Variable REPO_URL is not defined\n"
+    exit 2
+  fi
+  
   if [ -z "$INSTANCE" ]; then
     error "Variable INSTANCE is not defined\n"
 
