@@ -2,11 +2,12 @@
 
 set -e
 
-OMP_THEME=
-GIT_VERSION=
-NODE_VERSION=
-PYTHON_VERSION=
-MARIADB_VERSION=
+# This is the configuration for development environment
+OMP_THEME= #honukai
+GIT_VERSION= #2.41.0
+NODE_VERSION= #18.15.0
+PYTHON_VERSION= #3.11.0
+MARIADB_VERSION= #10.6
 
 main() {
   if cat /etc/os-release | grep -q debian; then

@@ -21,7 +21,7 @@ install_nvm() {
     [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"                   # This loads nvm
     [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion" # This loads nvm bash_completion
 
-    nvm install ${NODE_VERSION} &&
+    nvm install v${NODE_VERSION} &&
       nvm install-latest-npm &&
       npm install -g yarn
 
@@ -30,11 +30,13 @@ install_nvm() {
     npm --version
     yarn --version
 
-    printf "\n%s\n%s\n%s\n" \
-      "export NVM_DIR=\"\$HOME/.nvm\"" \
-      "[ -s \"\$NVM_DIR/nvm.sh\" ] && \. \"\$NVM_DIR/nvm.sh\"  # This loads nvm" \
-      "[ -s \"\$NVM_DIR/bash_completion\" ] && \. \"\$NVM_DIR/bash_completion\"  # This loads nvm bash_completion" |
-      tee -a ~/.zshrc >/dev/null
+    if ! grep -q "export NVM_DIR" ~/.zshrc; then
+      printf "\n%s\n%s\n%s\n" \
+        "export NVM_DIR=\"\$HOME/.nvm\"" \
+        "[ -s \"\$NVM_DIR/nvm.sh\" ] && \. \"\$NVM_DIR/nvm.sh\"  # This loads nvm" \
+        "[ -s \"\$NVM_DIR/bash_completion\" ] && \. \"\$NVM_DIR/bash_completion\"  # This loads nvm bash_completion" |
+        tee -a ~/.zshrc >/dev/null    
+    fi
   fi
 }
 
@@ -50,11 +52,12 @@ install_deno() {
 
     curl -fsSL https://deno.land/x/install/install.sh | bash
 
-    printf "\n%s\n%s\n" \
-      "export DENO_DIR=\"\$HOME/.deno\"" \
-      "export PATH=\"\$DENO_DIR/bin:\$PATH\"" |
-      tee -a ~/.zshrc ~/.bashrc >/dev/null
-
+    if ! grep -q "export DENO_DIR" ~/.zshrc; then
+      printf "\n%s\n%s\n" \
+        "export DENO_DIR=\"\$HOME/.deno\"" \
+        "export PATH=\"\$DENO_DIR/bin:\$PATH\"" |
+        tee -a ~/.zshrc ~/.bashrc >/dev/null
+    fi
     #smoke test
     deno --version
   fi
@@ -72,10 +75,12 @@ install_bun() {
 
     curl -fsSL https://bun.sh/install | bash
 
-    printf "\n%s\n%s\n" \
-      "export BUN_DIR=\"\$HOME/.bun\"" \
-      "export PATH=\"\$BUN_DIR/bin:\$PATH\"" |
-      tee -a ~/.zshrc ~/.bashrc >/dev/null
+    if ! grep -q "export DENO_DIR" ~/.zshrc; then
+      printf "\n%s\n%s\n" \
+        "export BUN_DIR=\"\$HOME/.bun\"" \
+        "export PATH=\"\$BUN_DIR/bin:\$PATH\"" |
+        tee -a ~/.zshrc ~/.bashrc >/dev/null
+    fi
 
     #smoke test
     bun --version
