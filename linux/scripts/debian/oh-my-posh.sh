@@ -23,11 +23,12 @@ install_ohmyposh() {
   mkdir -p $HOME/.oh-my-posh &&
     wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/${OMP_THEME}.omp.json -O $HOME/.oh-my-posh/default.omp.json
 
-  printf "\n%s" \
-    "eval \"\$(oh-my-posh init zsh --config ~/.oh-my-posh/default.omp.json)\"" |
-    tee -a $HOME/.zshrc >/dev/null
-
-  chsh -s $(which zsh)
+  if ! grep -q "export NVM_DIR" ~/.zshrc; then  
+    printf "\n%s" \
+      "eval \"\$(oh-my-posh init zsh --config ~/.oh-my-posh/default.omp.json)\"" |
+      tee -a $HOME/.zshrc >/dev/null
+      chsh -s $(which zsh)
+  fi
 }
 
 change_theme() {

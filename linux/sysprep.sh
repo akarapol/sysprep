@@ -2,23 +2,25 @@
 
 set -e
 
-OMP_THEME=
-GIT_VERSION=
-NODE_VERSION=
-PYTHON_VERSION=
-MARIADB_VERSION=
+# This is the configuration for development environment
+OMP_THEME= #honukai
+GIT_VERSION= #2.41.0
+NODE_VERSION= #18.15.0
+PYTHON_VERSION= #3.11.0
+MARIADB_VERSION= #10.6
 
-BENCH_VERSION=
-FRAPPE_VERSION=
+# This is the configuration for setup frappe environment
+BENCH_VERSION= #5.16.4
+FRAPPE_VERSION= #version-14
 
-APP_DIR=
+APP_DIR= #~/opt
 
-ROOT_PASSWORD=
-ADMIN_PASSWORD=
+ROOT_PASSWORD= #super_secure_password
+ADMIN_PASSWORD= #super_secure_password
 
-X_USER=
-X_TOKEN=
-X_REPO=
+X_USER= #your_user
+X_TOKEN= #your_token
+X_REPO= #repo.servername.com
 
 main() {
   if cat /etc/os-release | grep -q debian; then
