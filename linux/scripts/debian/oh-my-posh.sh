@@ -23,7 +23,7 @@ install_ohmyposh() {
   mkdir -p $HOME/.oh-my-posh &&
     wget https://raw.githubusercontent.com/JanDeDobbeleer/oh-my-posh/main/themes/${OMP_THEME}.omp.json -O $HOME/.oh-my-posh/default.omp.json
 
-  if ! grep -q "export NVM_DIR" ~/.zshrc; then  
+  if ! grep -q "oh-my-posh init zsh" ~/.zshrc; then  
     printf "\n%s" \
       "eval \"\$(oh-my-posh init zsh --config ~/.oh-my-posh/default.omp.json)\"" |
       tee -a $HOME/.zshrc >/dev/null
