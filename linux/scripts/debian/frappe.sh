@@ -259,7 +259,7 @@ enable_prod() {
 
   bench --site $SITE set-config developer_mode False
   bench --site $SITE set-config disable_session_cache True
-  bench --site $SITE set-maintenance-mode False  
+  bench --site $SITE set-maintenance-mode off  
   bench --site $SITE add-to-hosts
   bench --site $SITE enable-scheduler
   
