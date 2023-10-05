@@ -2,25 +2,28 @@
 
 set -e
 
-# This is the configuration for development environment
-OMP_THEME= #honukai
-GIT_VERSION= #2.41.0
-NODE_VERSION= #18.15.0
-PYTHON_VERSION= #3.11.0
-MARIADB_VERSION= #10.6
+RUNNING_DIR=$(dirname -- $0)
 
 main() {
   if cat /etc/os-release | grep -q debian; then
 
     source ./menu.sh
     source ./scripts/utils.sh
-
-    source ./scripts/debian/system.sh
-    source ./scripts/debian/oh-my-posh.sh
-    source ./scripts/debian/git.sh
-    source ./scripts/debian/nvm.sh
-    source ./scripts/debian/python.sh
-    source ./scripts/debian/mariadb.sh
+  
+    if [ -z $RUNNING_DIR/sysprep.env ]; 
+    then 
+      error "File sysprep.env is missing. Please check and try again."
+      exit 2
+    else
+      source $RUNNING_DIR/sysprep.env;    
+    fi
+    
+    source $RUNNING_DIR/scripts/debian/system.sh
+    source $RUNNING_DIR/scripts/debian/oh-my-posh.sh
+    source $RUNNING_DIR/scripts/debian/git.sh
+    source $RUNNING_DIR/scripts/debian/nvm.sh
+    source $RUNNING_DIR/scripts/debian/python.sh
+    source $RUNNING_DIR/scripts/debian/mariadb.sh
 
   fi
 

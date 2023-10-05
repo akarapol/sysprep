@@ -10,7 +10,8 @@ load_menu() {
     print_header "Welcome to setup script"
 
     printf "1) Setup server\n"
-
+    printf "2) Install redis & mariadb\n"
+    
     printf "Q) Quit\n\n"
 
     read -p "Choose an option: " option
@@ -21,6 +22,9 @@ load_menu() {
         install_library && config &&
         install_git && install_nvm && install_python &&
         install_ohmyposh
+        ;;
+      2)
+        install_redis && install_mariadb
         ;;
       q|Q)
         exit
