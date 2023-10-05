@@ -24,6 +24,12 @@ install_bench() {
           xvfb libfontconfig wkhtmltopdf &&
       apt autoclean -y"
 
+    # additional library
+    sudo su -c "
+      apt install --no-install-recommends -y \
+        libzbar0
+      apt autoclean -y"
+      
     # playwright library
     sudo su -c "
       apt install --no-install-recommends -y \
@@ -71,7 +77,14 @@ confirm(){
 create_instance() {
   clear_screen
   set_repo_url
-  
+    
+  while true;
+  do
+    print_header "Please specify instance name"
+    read -p "Name: " INSTANCE;
+    if [ -n "$INSTANCE" ]; then break; fi
+  done
+    
   if [ -z "$REPO_URL" ]; then
     error "Variable REPO_URL is not defined\n"
     exit 2
@@ -83,18 +96,14 @@ create_instance() {
   fi
 
   if [ -z "$FRAPPE_VERSION" ]; then
+    clear_screen
     error "Variable FRAPPE_VERSION is not defined\n"
-    exit 2
-  fi
 
-  if [ -z "$INSTANCE" ]; then
-    error "Variable INSTANCE is not defined\n"
-    
     while true;
     do
-      print_header "Please specify instance name"
-      read -p "Name: " INSTANCE;
-      if [ -n "$INSTANCE" ]; then break; fi
+      print_header "Please specify version"
+      read -p "Version: " FRAPPE_VERSION;
+      if [ -n "$FRAPPE_VERSION" ]; then break; fi
     done
   fi
 
@@ -153,8 +162,7 @@ create_site() {
   bench new-site $site --mariadb-root-password $ROOT_PASSWORD --admin-password $ADMIN_PASSWORD --db-name $db_name --verbose
   bench use $site &&
   bench set-config developer_mode True &&
-  bench set-config disable_session_cache True &&
-  bench set-config shallow_clone False
+  bench set-config disable_session_cache True
 }
 
 install_app() {
@@ -249,10 +257,11 @@ enable_prod() {
         supervisor &&
     apt autoclean -y"
 
-  bench --site $SITE set-config developer_mode 0
+  bench --site $SITE set-config developer_mode False
+  bench --site $SITE set-config disable_session_cache True
+  bench --site $SITE set-maintenance-mode False  
   bench --site $SITE add-to-hosts
   bench --site $SITE enable-scheduler
-  bench --site $SITE set-maintenance-mode off
   
   sudo su -c "
     yes | bench setup production $(whoami) &&
