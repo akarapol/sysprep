@@ -10,7 +10,8 @@ load_menu() {
     print_header "Welcome to setup script"
 
     printf "1) Setup server\n"
-    printf "2) Install redis & mariadb\n"
+    printf "2) Install dev environment\n"
+    printf "3) Install redis & mariadb\n"
     
     printf "Q) Quit\n\n"
 
@@ -20,10 +21,13 @@ load_menu() {
     case $option in
       1) 
         install_library && config &&
-        install_git && install_nvm && install_python &&
         install_ohmyposh
         ;;
       2)
+        install_git && install_nvm && install_python &&
+        install_bun && install_deno && install_go
+        ;;
+      3)
         install_redis && install_mariadb
         ;;
       q|Q)
