@@ -86,3 +86,31 @@ install_bun() {
     bun --version
   fi
 }
+
+install_go() {
+  clear_screen
+
+  print_header "Install go"
+
+  if ! [ -d "/usr/local/go" ]; then
+    
+    export GO_DIR="/usr/local/go"
+    export PATH="$GO_DIR/bin:$PATH"
+
+    sudo su -c "
+      rm -rf /usr/local/go &&
+      wget https://go.dev/dl/go$GO_VERSION.linux-amd64.tar.gz &&
+      tar -C /usr/local -xzf go$GO_VERSION.linux-amd64.tar.gz &&
+      rm go$GO_VERSION.linux-amd64.tar.gz"
+
+    if ! grep -q "export GO_DIR" ~/.zshrc; then
+      printf "\n%s\n%s\n" \
+        "export GO_DIR=\"/usr/local/go\"" \
+        "export PATH=\"\$GO_DIR/bin:\$PATH\"" |
+        tee -a ~/.zshrc ~/.bashrc >/dev/null
+    fi
+
+    #smoke test
+    go version
+  fi
+}

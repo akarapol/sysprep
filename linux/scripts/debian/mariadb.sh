@@ -14,7 +14,7 @@ install_mariadb() {
 
   if ! exists mariadb; then
     sudo su -c "curl -LsS -O https://downloads.mariadb.com/MariaDB/mariadb_repo_setup && \
-            bash mariadb_repo_setup --os-type=debian  --os-version=buster --mariadb-server-version=$MARIADB_VERSION && \
+            bash mariadb_repo_setup --mariadb-server-version=$MARIADB_VERSION && \
             rm -f mariadb_repo_setup"
     
     sudo su -c "wget http://ftp.us.debian.org/debian/pool/main/r/readline5/libreadline5_5.2+dfsg-3+b13_amd64.deb && \
