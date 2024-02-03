@@ -18,6 +18,7 @@ setup_repository() {
     sudo su -c "wget http://ftp.us.debian.org/debian/pool/main/r/readline5/libreadline5_5.2+dfsg-3+b13_amd64.deb && \
             dpkg -i libreadline5_5.2+dfsg-3+b13_amd64.deb && \
             rm -f libreadline5_5.2+dfsg-3+b13_amd64.deb"
+  fi
 }
 
 install_mariadb_server() {
@@ -36,7 +37,6 @@ install_mariadb_server() {
 
     # smoke test
     mariadb --version
-  fi
 }
 
 install_mariadb_client() {
@@ -55,7 +55,6 @@ install_mariadb_client() {
 
     # smoke test
     mariadb --version
-  fi
 }
 
 config_mariadb_server() {
