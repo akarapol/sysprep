@@ -10,9 +10,13 @@ load_menu() {
     print_header "Welcome to setup script"
 
     printf "1) Setup server\n"
-    printf "2) Install redis & mariadb\n"
-    printf "3) Setup frappe\n"
-    printf "4) Install app\n"
+    printf "2) Prepare dev server\n"
+    printf "3) Prepare frappe AIO server\n"
+    printf "4) Prepare frappe DB server\n"
+    printf "5) Prepare frappe APP server\n"
+    printf "6) Create frappe instance\n"
+    printf "7) Install custom app\n"
+    printf "8) Enaable production"
     
     printf "Q) Quit\n\n"
 
@@ -21,18 +25,31 @@ load_menu() {
 
     case $option in
       1) 
-        install_library && config &&
-        install_git && install_nvm && install_python &&
-        install_ohmyposh
+        config && install_library && install_ohmyposh
         ;;
       2)
-        install_redis && install_mariadb
+        install_git && install_nvm && install_python &&
+        install_bun && install_deno && install_go
         ;;
       3)
-        install_bench && create_instance
+        install_git && install_nvm && install_python &&
+        install_redis && install_mariadb_server
         ;;
       4)
+        install_mariadb_server
+        ;;
+      5)
+        install_git && install_nvm && install_python &&
+        install_redis && install_mariadb_client
+        ;;
+      6)
+        install_bench && create_instance
+        ;;
+      7)
         install_app
+        ;;
+      8)
+        enable_prod
         ;;
       q|Q)
         exit
