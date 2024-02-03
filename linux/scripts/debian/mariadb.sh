@@ -23,40 +23,40 @@ setup_repository() {
 
 install_mariadb_server() {
   clear_screen
+  setup_repository
   
   print_header "Install MariaDB ${MARIADB_VERSION}"
 
-    setup_repository
-    sudo su -c "
-      apt update &&
-      apt upgrade -y &&
-      apt install --no-install-recommends -y \
-          mariadb-server mariadb-client &&
-      apt autoclean -y"
+  sudo su -c "
+    apt update &&
+    apt upgrade -y &&
+    apt install --no-install-recommends -y \
+        mariadb-server mariadb-client &&
+    apt autoclean -y"
 
-    config_mariadb_server
+  config_mariadb_server
 
-    # smoke test
-    mariadb --version
+  # smoke test
+  mariadb --version
 }
 
 install_mariadb_client() {
   clear_screen
+  setup_repository
   
   print_header "Install MariaDB ${MARIADB_VERSION}"
 
-    setup_repository
-    sudo su -c "
-      apt update &&
-      apt upgrade -y &&
-      apt install --no-install-recommends -y \
-          mariadb-client &&
-      apt autoclean -y"
+  sudo su -c "
+    apt update &&
+    apt upgrade -y &&
+    apt install --no-install-recommends -y \
+        mariadb-client &&
+    apt autoclean -y"
 
-    config_mariadb_client
+  config_mariadb_client
 
-    # smoke test
-    mariadb --version
+  # smoke test
+  mariadb --version
 }
 
 config_mariadb_server() {
