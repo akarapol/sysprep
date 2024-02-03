@@ -133,13 +133,13 @@ create_site() {
     done
   fi
 
-  if [ -z "$ROOT_PASSWORD" ]; then
-    error "Variable ROOT_PASSWORD is not defined\n"
+  if [ -z "$MARIADB_ADMIN_PASSWORD" ]; then
+    error "Variable MYSQL_ADMIN_PASSWORD is not defined\n"
     exit 2
   fi
 
-  if [ -z "$ADMIN_PASSWORD" ]; then
-    error "Variable ADMIN_PASSWORD is not defined\n"
+  if [ -z "$FRAPPE_ADMIN_PASSWORD" ]; then
+    error "Variable FRAPPE_ADMIN_PASSWORD is not defined\n"
     exit 2
   fi
 
@@ -159,7 +159,7 @@ create_site() {
 
   confirm $site &&
   cd $APP_DIR/$INSTANCE &&
-  bench new-site $site --mariadb-root-password $ROOT_PASSWORD --admin-password $ADMIN_PASSWORD --db-name $db_name --verbose
+  bench new-site $site --mariadb-root-password $MARIADB_ADMIN_PASSWORD --admin-password $FRAPPE_ADMIN_PASSWORD --db-name $db_name --verbose
   bench use $site &&
   bench set-config developer_mode True &&
   bench set-config disable_session_cache True

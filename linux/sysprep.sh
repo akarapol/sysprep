@@ -10,8 +10,8 @@ FRAPPE_VERSION= #version-14
 
 APP_DIR= #~/opt
 
-ROOT_PASSWORD= #super_secure_password
-ADMIN_PASSWORD= #super_secure_password
+MARIADB_ADMIN_PASSWORD= #super_secure_password
+FRAPPE_ADMIN_PASSWORD= #super_secure_password
 
 X_USER= #your_user
 X_TOKEN= #your_token
