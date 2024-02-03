@@ -10,7 +10,10 @@ FRAPPE_VERSION= #version-14
 
 APP_DIR= #~/opt
 
-MARIADB_ADMIN_PASSWORD= #super_secure_password
+DB_HOST= #127.0.0.1
+DB_ROOT_USERNAME= #super_user_on_db_server
+DB_ROOT_PASSWORD= #password_of_super_user
+
 FRAPPE_ADMIN_PASSWORD= #super_secure_password
 
 X_USER= #your_user

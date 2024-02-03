@@ -111,7 +111,10 @@ create_instance() {
   print_header "Create new instance \"$INSTANCE\" in \"$APP_DIR\""
 
   confirm $INSTANCE &&
-  bench init $APP_DIR/$INSTANCE --frappe-branch $FRAPPE_VERSION --frappe-path $REPO_URL/frappe --verbose &&
+  bench init $APP_DIR/$INSTANCE \
+              --frappe-branch $FRAPPE_VERSION \
+              --frappe-path $REPO_URL/frappe \
+              --verbose &&
   cd $APP_DIR/$INSTANCE &&
   chmod -R o+rx $APP_DIR/$INSTANCE
   bench find .
@@ -133,8 +136,18 @@ create_site() {
     done
   fi
 
-  if [ -z "$MARIADB_ADMIN_PASSWORD" ]; then
-    error "Variable MYSQL_ADMIN_PASSWORD is not defined\n"
+  if [ -z "$DB_HOST" ]; then
+    error "Variable DB_HOST is not defined\n"
+    exit 2
+  fi
+  
+  if [ -z "$DB_ROOT_USERNAME" ]; then
+    error "Variable DB_ROOT_USERNAME is not defined\n"
+    exit 2
+  fi
+
+  if [ -z "$DB_ROOT_PASSWORD" ]; then
+    error "Variable DB_ROOT_PASSWORD is not defined\n"
     exit 2
   fi
 
@@ -159,7 +172,14 @@ create_site() {
 
   confirm $site &&
   cd $APP_DIR/$INSTANCE &&
-  bench new-site $site --mariadb-root-password $MARIADB_ADMIN_PASSWORD --admin-password $FRAPPE_ADMIN_PASSWORD --db-name $db_name --verbose
+  bench new-site $site \
+                --no-mariadb-socket \
+                --db-host $DB_HOST \
+                --db-root-username $DB_ROOT_USERNAME \
+                --db-root-password $DB_ROOT_PASSWORD \
+                --admin-password $FRAPPE_ADMIN_PASSWORD \
+                --db-name $db_name \
+                --verbose
   bench use $site &&
   bench set-config developer_mode True &&
   bench set-config disable_session_cache True
