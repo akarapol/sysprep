@@ -26,6 +26,7 @@ install_mariadb_server() {
   
   print_header "Install MariaDB ${MARIADB_VERSION}"
 
+    setup_repository
     sudo su -c "
       apt update &&
       apt upgrade -y &&
@@ -44,6 +45,7 @@ install_mariadb_client() {
   
   print_header "Install MariaDB ${MARIADB_VERSION}"
 
+    setup_repository
     sudo su -c "
       apt update &&
       apt upgrade -y &&
