@@ -16,7 +16,7 @@ load_menu() {
     printf "5) Prepare frappe APP server\n"
     printf "6) Create frappe instance\n"
     printf "7) Install custom app\n"
-    printf "8) Enaable production"
+    printf "8) Enaable production\n"
     
     printf "Q) Quit\n\n"
 
