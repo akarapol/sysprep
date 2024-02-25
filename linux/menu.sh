@@ -15,8 +15,9 @@ load_menu() {
     printf "4) Prepare frappe DB server\n"
     printf "5) Prepare frappe APP server\n"
     printf "6) Create frappe instance\n"
-    printf "7) Install custom app\n"
-    printf "8) Enable production\n"
+    printf "7) Create site\n"
+    printf "8) Install custom app\n"
+    printf "9) Enable production\n"
     
     printf "Q) Quit\n\n"
 
@@ -46,9 +47,12 @@ load_menu() {
         install_bench && create_instance
         ;;
       7)
-        install_app
+        create_site
         ;;
       8)
+        install_app
+        ;;
+      9)
         enable_prod
         ;;
       q|Q)
