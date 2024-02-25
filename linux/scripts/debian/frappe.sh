@@ -37,7 +37,7 @@ install_bench() {
           libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2 libatspi2.0-0 &&
       apt autoclean -y"
 
-    sudo pip install frappe-bench==$BENCH_VERSION
+    pip install frappe-bench==$BENCH_VERSION
 
     # smoke test
     bench --version
@@ -118,8 +118,6 @@ create_instance() {
   cd $APP_DIR/$INSTANCE &&
   chmod -R o+rx $APP_DIR/$INSTANCE
   bench find .
-
-  create_site 
 }
 
 create_site() {
@@ -160,29 +158,28 @@ create_site() {
   while true;
   do
     print_header "Please specify parameters"
-    read -p "Site: " site;
-    read -p "Database name: " -e -i "$site" db_name;
-    if [ -n "$site" ] && [ -n "$db_name" ]; then break; fi
+    read -p "Site: " SITE;
+    read -p "Database name: " -e -i "$SITE" DB_NAME;
+    if [ -n "$SITE" ] && [ -n "$DB_NAME" ]; then break; fi
   done
 
   clear_screen
-  print_header "Setup site >> $site"
+  print_header "Setup site >> $SITE"
   info "Create new site for instance $APP_DIR/$INSTANCE\n"
-  info "with site name $site\n\n"
+  info "with site name $SITE\n\n"
 
-  confirm $site &&
+  confirm $SITE &&
   cd $APP_DIR/$INSTANCE &&
-  bench new-site $site \
+  bench new-site $SITE \
                 --no-mariadb-socket \
                 --db-host $DB_HOST \
                 --db-root-username $DB_ROOT_USERNAME \
                 --db-root-password $DB_ROOT_PASSWORD \
                 --admin-password $FRAPPE_ADMIN_PASSWORD \
-                --db-name $db_name \
-                --verbose
-  bench use $site &&
-  bench set-config developer_mode True &&
-  bench set-config disable_session_cache True
+                --db-name $DB_NAME \
+                --verbose &&
+  bench --site $SITE add-to-hosts &&
+  bench --site $SITE set-config developer_mode True
 }
 
 install_app() {
@@ -278,7 +275,6 @@ enable_prod() {
     apt autoclean -y"
 
   bench --site $SITE set-config developer_mode False
-  bench --site $SITE set-config disable_session_cache True
   bench --site $SITE set-maintenance-mode off  
   bench --site $SITE add-to-hosts
   bench --site $SITE enable-scheduler
