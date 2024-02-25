@@ -12,11 +12,11 @@ load_menu() {
     printf "1) Setup server\n"
     printf "2) Prepare dev server\n"
     printf "3) Prepare frappe AIO server\n"
-    printf "4) Prepare frappe DB server\n"
+    printf "4) Prepare MariaDB server\n"
     printf "5) Prepare frappe APP server\n"
-    printf "6) Create frappe instance\n"
-    printf "7) Create site\n"
-    printf "8) Install custom app\n"
+    printf "6) Create frappe instance & default site\n"
+    printf "7) Add site to existing frappe instance\n"
+    printf "8) Get & install custom app\n"
     printf "9) Enable production\n"
     
     printf "Q) Quit\n\n"
@@ -44,7 +44,7 @@ load_menu() {
         install_redis && install_mariadb_client
         ;;
       6)
-        install_bench && create_instance
+        install_bench && create_instance && create_site
         ;;
       7)
         create_site
