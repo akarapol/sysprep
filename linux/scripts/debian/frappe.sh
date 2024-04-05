@@ -37,7 +37,7 @@ install_bench() {
           libxrandr2 libgbm1 libpango-1.0-0 libcairo2 libasound2 libatspi2.0-0 &&
       apt autoclean -y"
 
-    pip install frappe-bench==$BENCH_VERSION
+    sudo pip install frappe-bench==$BENCH_VERSION
 
     # smoke test
     bench --version
