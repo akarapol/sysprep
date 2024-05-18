@@ -24,6 +24,7 @@ main() {
     source $RUNNING_DIR/scripts/debian/nvm.sh
     source $RUNNING_DIR/scripts/debian/python.sh
     source $RUNNING_DIR/scripts/debian/mariadb.sh
+    source $RUNNING_DIR/scripts/debian/terminal.sh
 
   fi
 
