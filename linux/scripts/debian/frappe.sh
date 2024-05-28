@@ -45,21 +45,33 @@ install_bench() {
 }
 
 set_repo_url() {
-  if [ -z "$X_USER" ]; then
-    error "Variable X_USER is not defined\n"
-    exit 2
+  if [ "$X_MODE" = "ssh" ]; then
+    if ! [ -f $X_KEY ]; then
+        error "File RUNNING_DIR/$X_KEY Not Found\n"
+        exit 2 
+    fi
+    
+    ssh-add $X_KEY &&
+    REPO_URL=ssh://git@$X_REPO    
   fi
 
-  if [ -z "$X_TOKEN" ]; then
-    error "Variable X_TOKEN is not defined\n"
-    exit 2
-  fi
+  if [ "$X_MODE" = "https" ]; then
+    if [ -z "$X_USER" ]; then
+      error "Variable X_USER is not defined\n"
+      exit 2
+    fi
 
-  if [ -z "$X_REPO" ]; then
-    error "Variable X_REPO is not defined\n"
-    exit 2
+    if [ -z "$X_TOKEN" ]; then
+      error "Variable X_TOKEN is not defined\n"
+      exit 2
+    fi
+
+    if [ -z "$X_REPO" ]; then
+      error "Variable X_REPO is not defined\n"
+      exit 2
+    fi
+    REPO_URL=https://$X_USER:$X_TOKEN@$X_REPO
   fi
-  REPO_URL=https://$X_USER:$X_TOKEN@$X_REPO
 }
 
 confirm(){     
@@ -117,7 +129,7 @@ create_instance() {
               --verbose &&
   cd $APP_DIR/$INSTANCE &&
   chmod -R o+rx $APP_DIR/$INSTANCE
-  bench find .
+  ssh-add -D
 }
 
 create_site() {
@@ -236,6 +248,7 @@ install_app() {
 
   bench get-app $APP $REPO_URL/$APP --branch $BRANCH &&
   bench --site $SITE install-app $APP
+  ssh-add -D
 }
 
 enable_prod() {
