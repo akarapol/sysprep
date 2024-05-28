@@ -44,15 +44,18 @@ install_bench() {
   fi
 }
 
-set_repo_url() {
+setup_repo() {
   if [ "$X_MODE" = "ssh" ]; then
-    if ! [ -f $X_KEY ]; then
-        error "File RUNNING_DIR/$X_KEY Not Found\n"
-        exit 2 
+    if ! grep -q "Host frappe" ~/.ssh/config; then
+      printf "\n%s\n%s\n%s\n%s\n" \
+        "Host frappe-repo" \
+        " HostName ${X_REPO}" \
+        " User git" \
+        " IdentityFile ${X_KEY}" |
+        tee -a ~/.ssh/config >/dev/null  
     fi
     
-    ssh-add $X_KEY &&
-    REPO_URL=ssh://git@$X_REPO    
+    REPO_URL=ssh://frappe-repo/frappe
   fi
 
   if [ "$X_MODE" = "https" ]; then
@@ -70,7 +73,7 @@ set_repo_url() {
       error "Variable X_REPO is not defined\n"
       exit 2
     fi
-    REPO_URL=https://$X_USER:$X_TOKEN@$X_REPO
+    REPO_URL=https://$X_USER:$X_TOKEN@$X_REPO/frappe
   fi
 }
 
@@ -88,7 +91,7 @@ confirm(){
 
 create_instance() {
   clear_screen
-  set_repo_url
+  setup_repo
     
   while true;
   do
@@ -129,7 +132,6 @@ create_instance() {
               --verbose &&
   cd $APP_DIR/$INSTANCE &&
   chmod -R o+rx $APP_DIR/$INSTANCE
-  ssh-add -D
 }
 
 create_site() {
@@ -196,7 +198,7 @@ create_site() {
 
 install_app() {
   clear_screen
-  set_repo_url
+  setup_repo
   
   if [ -z "$REPO_URL" ]; then
     error "Variable REPO_URL is not defined\n"
@@ -248,7 +250,6 @@ install_app() {
 
   bench get-app $APP $REPO_URL/$APP --branch $BRANCH &&
   bench --site $SITE install-app $APP
-  ssh-add -D
 }
 
 enable_prod() {
