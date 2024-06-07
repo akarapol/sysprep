@@ -46,9 +46,9 @@ install_bench() {
 
 setup_repo() {
   if [ "$X_MODE" = "ssh" ]; then
-    if ! grep -q "Host frappe" ~/.ssh/config; then
+    if ! grep -iq "Host frappe-repo" ~/.ssh/config; then
       printf "\n%s\n%s\n%s\n%s\n" \
-        "Host frappe-repo" \
+        "HOST frappe-repo" \
         " HostName ${X_REPO}" \
         " User git" \
         " IdentityFile ${X_KEY}" |
