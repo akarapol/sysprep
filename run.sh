@@ -70,6 +70,8 @@ main() {
     case "${S_ARGS}" in
       core)
         LOG=$(print_header "Setup basic configuration")
+        update_system && install_library && \
+        install_lazygit && install_ohmyposh && cleanup && \
         clear_screen && exit 0
         ;;
       mariadb)
