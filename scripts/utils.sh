@@ -61,3 +61,25 @@ check_variables() {
     exit 1
   fi
 }
+
+set_password() {
+  local password confirmed_password
+
+  while true; do
+    # Prompt for password with masking
+    read -sp "Enter password: " password
+    echo
+
+    # Prompt for confirmation with masking
+    read -sp "Confirm password: " confirmed_password
+    echo
+
+    # Check if passwords match
+    if [[ "$password" == "$confirmed_password" ]]; then
+      break
+    else
+      echo "Passwords do not match. Please try again."
+    fi
+  done
+  PASSWD=$password
+}
