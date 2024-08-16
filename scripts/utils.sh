@@ -43,3 +43,21 @@ success() {
 exist() {
   hash "${1}" 2>/dev/null
 }
+
+check_variables() {
+  local check_list=("$@")
+  local fail=0
+  local err_msg=$(print_header "Check Variables")
+
+  for i in "${check_list[@]}"; do
+    if [ -z "${!i}" ]; then
+      err_msg+=$(error "Variable ${i} must be defined")
+      fail=1
+    fi
+  done
+
+  if [[ ${fail} == 1 ]]; then
+    printf "\033c${err_msg}\n"
+    exit 1
+  fi
+}

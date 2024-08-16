@@ -5,8 +5,6 @@ RUNNING_DIR=$(dirname -- "${0}")
 S_ARGS=
 X_ARGS=
 
-source scripts/utils.sh
-
 # ************************************************************ #
 # MAIN PROGRAM                                                 #
 # ************************************************************ #
@@ -71,22 +69,30 @@ main() {
   if [[ -n "${S_ARGS}" ]]; then
     case "${S_ARGS}" in
       core)
-        print_header "Setup basic configuration"
+        LOG=$(print_header "Setup basic configuration")
+        clear_screen && exit 0
         ;;
       mariadb)
-        print_header "Setup MariaDB server"
+        LOG=$(print_header "Setup MariaDB server")
+        clear_screen && exit 0
         ;;
       dev)
-        print_header "Setup Frappe Development server"
+        LOG=$(print_header "Setup Frappe Development server")
+        clear_screen && exit 0
         ;;
       aio)
-        print_header "Setup Frappe All-in-one server"
+        LOG=$(print_header "Setup Frappe All-in-one server")
+        clear_screen && exit 0
         ;;
       app)
-        print_header "Setup Frappe App server"
+        LOG=$(print_header "Setup Frappe App server")
+        clear_screen && exit 0
         ;;
     esac
   fi
 }
 
+source scripts/utils.sh
+source scripts/core.sh
+source scripts/db.sh
 main "$@"
