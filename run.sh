@@ -8,6 +8,9 @@ X_ARGS=
 # ************************************************************ #
 # USER VARIABLES                                               #
 # ************************************************************ #
+GIT_VERSION= #"2.43.0"
+NODE_VERSION= #"20.11.0"
+PYTHON_VERSION= #"3.12.0"
 MARIADB_VERSION= #"10.11"
 
 # ************************************************************ #
@@ -88,7 +91,12 @@ main() {
         clear_screen && exit 0
         ;;
       dev)
+        local vars=("GIT_VERSION" "NODE_VERSION" "PYTHON_VERSION" "MARIADB_VERSION")
         LOG=$(print_header "Setup Frappe Development server")
+        check_variables "${vars[@]}" && \
+        update_system && install_library && \
+        install_git && install_nvm && install_python && \
+        install_redis && install_mariadb_server && \
         clear_screen && exit 0
         ;;
       aio)
@@ -104,6 +112,7 @@ main() {
 }
 
 source scripts/utils.sh
+source scripts/build-tools.sh
 source scripts/core.sh
 source scripts/db.sh
 main "$@"
