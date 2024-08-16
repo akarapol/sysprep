@@ -6,6 +6,11 @@ S_ARGS=
 X_ARGS=
 
 # ************************************************************ #
+# USER VARIABLES                                               #
+# ************************************************************ #
+MARIADB_VERSION= #"10.11"
+
+# ************************************************************ #
 # MAIN PROGRAM                                                 #
 # ************************************************************ #
 display_help() {
@@ -75,7 +80,11 @@ main() {
         clear_screen && exit 0
         ;;
       mariadb)
+        local vars=("MARIADB_VERSION")
         LOG=$(print_header "Setup MariaDB server")
+        check_variables "${vars[@]}" && \
+        update_system && install_library && \
+        install_mariadb_server && \
         clear_screen && exit 0
         ;;
       dev)
